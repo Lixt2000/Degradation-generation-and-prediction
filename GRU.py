@@ -1,25 +1,8 @@
 '''GRU完整模块'''
 
-# 用户：Ejemplarr
-# 编写时间:2022/3/24 22:09
 import torch
 import torch.nn as nn
-'''
-GRU:
-   		对于每个网络框架具体的学习最好参考官网进行学习：
 
-    	https://pytorch.org/docs/master/generated/torch.nn.GRU.html#torch.nn.GRU
-
-    	因为官网对于一个网络的输入和输出的数据的shape讲的特别清楚，对于我来说，看完相关基本原理之后，直接就是打开官网
-    仔细阅读一下整个网络的各种数据的shape，以及各种参数的实际意义，最后就是借助简单的数据集跑一个demo。这仅仅是我
-    个人的习惯，仅供参考。
-    	关于GRU的原理，可以参考某站的李沐老师的动手学习深度学习系列。
-'''
-'''
-    	定义Parameters,从官网上可以看见除了我们下面定义的这两个参数，其他参数都有默认值，如果实现最简单的GRU网络，自己定义一下
-    前面两个参数就行了，后面的例如dropout是防止过拟合的，bidirectional是控制是否实现双向的，等等，但是这边我们还需要设置
-    batch_first = True，因为一般我们的数据格式都是batch_size在前
-'''
 INPUT_SIZE = 1# The number of expected features in the input x，就是我们表示子序列中一个数的描述的特征数量，只有一个就填1，一个数字就是1
 HIDDEN_SIZE = 64# The number of features in the hidden state h，隐藏状态的特征数
 NUM_LAYERS = 3
