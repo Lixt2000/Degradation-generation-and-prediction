@@ -1,5 +1,4 @@
 """
-
 discriminative_score_metrics.py
 
 Note: Use post-hoc RNN to classify original data and synthetic data
@@ -171,13 +170,6 @@ def discriminative_score_metrics_multi(ori_data, generated_data):
       T_linear.append(t_linear)
   T_linear = np.array(T_linear)
   """
-  # Input place holders
-  # Feature
-  X = tf.placeholder(tf.float32, [None, max_seq_len, dim], name="myinput_x")
-  X_hat = tf.placeholder(tf.float32, [None, max_seq_len, dim], name="myinput_x_hat")
-
-  T = tf.placeholder(tf.int32, [None], name="myinput_t")
-  T_hat = tf.placeholder(tf.int32, [None], name="myinput_t_hat")
 
   # discriminator function
   def discriminator(x, t):
@@ -203,6 +195,14 @@ def discriminative_score_metrics_multi(ori_data, generated_data):
 
   discri = 0
   for num in range(dd):
+    # Input place holders
+    # Feature
+    X = tf.placeholder(tf.float32, [None, max_seq_len, dim], name="myinput_x")
+    X_hat = tf.placeholder(tf.float32, [None, max_seq_len, dim], name="myinput_x_hat")
+
+    T = tf.placeholder(tf.int32, [None], name="myinput_t")
+    T_hat = tf.placeholder(tf.int32, [None], name="myinput_t_hat")
+
     y_logit_real, y_pred_real, d_vars = discriminator(X, T)
     y_logit_fake, y_pred_fake, _ = discriminator(X_hat, T_hat)
 
@@ -223,7 +223,7 @@ def discriminative_score_metrics_multi(ori_data, generated_data):
 
     # Train/test division for both original and generated data
     train_x, train_x_hat, test_x, test_x_hat, train_t, train_t_hat, test_t, test_t_hat = \
-      train_test_divide(np.array(ori_data)[:,:,:num], np.array(generated_data)[:,:,:num], ori_time, generated_time)
+      train_test_divide(np.array(ori_data)[:,:,:,num], np.array(generated_data)[:,:,:,num], ori_time, generated_time)
 
     # Training step
     for itt in range(iterations):

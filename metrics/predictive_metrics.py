@@ -145,12 +145,6 @@ def predictive_score_metrics_multi(ori_data, generated_data):
   iterations = 2000
   batch_size = 128
 
-  # Input place holders
-  # X = tf.placeholder(tf.float32, [None, max_seq_len-1, dim-1], name = "myinput_x")
-  X = tf.placeholder(tf.float32, [None, max_seq_len - 1, dim], name="myinput_x")
-  T = tf.placeholder(tf.int32, [None], name="myinput_t")
-  Y = tf.placeholder(tf.float32, [None, max_seq_len - 1, 1], name="myinput_y")
-
   # Predictor function
   def predictor(x, t):
     """Simple predictor function.
@@ -174,6 +168,12 @@ def predictive_score_metrics_multi(ori_data, generated_data):
 
   predi = 0
   for num in range(dd):
+    # Input place holders
+    # X = tf.placeholder(tf.float32, [None, max_seq_len-1, dim-1], name = "myinput_x")
+    X = tf.placeholder(tf.float32, [None, max_seq_len - 1, dim], name="myinput_x")
+    T = tf.placeholder(tf.int32, [None], name="myinput_t")
+    Y = tf.placeholder(tf.float32, [None, max_seq_len - 1, 1], name="myinput_y")
+
     y_pred, p_vars = predictor(X, T)
     # Loss for the predictor
     p_loss = tf.losses.absolute_difference(Y, y_pred)
